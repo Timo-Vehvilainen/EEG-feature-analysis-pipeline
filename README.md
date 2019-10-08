@@ -3,49 +3,29 @@
 This pipeline can be used to analyze changes in computational features of EEG data during drug trials. The computational features provided include:
 
     - Power Spectral Density (PSD)
-    
     - cross Power Spectral Density (cPSD)
-    
     - Activation Synchrony Index (ASI)
-    
     - Nestedness Coefficient (NC)
-    
     - weighted Phase Lag Index (wPLI)
-    
     - amplitude-integrated EEG (aEEG):
-    
         - mean
-    
         - interquartile range 
-    
     - range-EEG (rEEG):
-        
         - mean
-        
         - interquartile range
-        
         - lower 5th percentile
-    
     - Multifractal Detrended Fluctuation Analysis (MFDFA):
-        
         - height
-        
         - width
-        
         - peak
-        
         - tail
-    
     - Suppression Curve (SC)
     
 the pipeline computes and displays the following statistical representations for the aforementioned features:
     
     - absolute time trend
-    
     - time trend relative to a specified baseline
-    
     - group comparison relative to a specified baseline
-    
     - correlation testing relative to a specified baseline
     
 # Input
@@ -66,7 +46,11 @@ Each row in the cell array will represent a single artifact period in the data, 
 
 1st column:
 
-    Text annotation starting with the string "Artifact". If nothing else is provided, the artifact is assumed to affect all channels. Individual channels may be specified by continuing the string with a dash surrounded by spaces " - ",  and following this by naming the individual channels affected, separated by commas. An example annotation: "Artifact - F3,P3".
+    Text annotation starting with the string "Artifact". 
+    If nothing else is provided, the artifact is assumed to affect all channels. 
+    Individual channels may be specified by continuing the string with a dash surrounded by spaces " - ",  
+    and following this by naming the individual channels affected, separated by commas. 
+    An example annotation: "Artifact - F3,P3".
     
 2nd column:
 
