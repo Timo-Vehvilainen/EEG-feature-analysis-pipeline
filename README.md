@@ -38,6 +38,13 @@ The .e-files need to include an annotation somewhere indicating the starting tim
 
 To use this pipeline, follow the instructions provided in the comments of the feature_analysis_pipeline.m -file, and run it through section by section. Commentation is provided in the subfunctions, so that moderate handling of matlab should suffice for modifying the pipeline to custom needs. This pipeline was built and first used with MatLab version 2019a.
 
+# Output
+
+After running the final part of the pipeline succesfully, the following three files should appear for each figure that is produced:
+    - .fig-file of the figure
+    - .pdf-image of the figure
+    - .mat file, which includes a cell array of tables. Each cell in the cell array visually corresponds to a subplot in the figure of the same name. Eg. The data table for the subplot in the upper left-hand corner is in cell with index (1,1).
+
 # Artifact data formatting
 
 The automatic reading of artifact data is only implemented for monopolar channels F3, F4, P3 and P4. Information about artifacts in the data should be provided in .mat-files, as cell arrays. The cell arrays need to follow the following format:
@@ -59,4 +66,3 @@ Each row in the cell array will represent a single artifact period in the data, 
 3rd column:
 
     The duration of the artifact, in "mm:ss" format (the amount of minutes may exceed 60 if needed). For example "01:05" 
-
