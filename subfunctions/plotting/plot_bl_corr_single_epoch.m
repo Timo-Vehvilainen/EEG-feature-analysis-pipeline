@@ -1,7 +1,7 @@
 %Timo Vehviläinen August 2019
 
 function [] = plot_bl_corr_single_epoch(pre, post, baseline_fcn, ...
-    postdrug_epoch, p_threshold)
+    postdrug_epoch)
 %PLOT_BL_CORR_SINGLE_EPOCH
 %   This function takes in epochs of pre- & postdrug EEG data for a single
 % feature, calculates a baseline from the predrug epochs, calculates the
@@ -29,18 +29,23 @@ function [] = plot_bl_corr_single_epoch(pre, post, baseline_fcn, ...
 %           graph.
  
 all_baselines = cellfun(@(x)baseline_fcn(x), pre);
-postdrug_values = cellfun(@(x)x(postdrug_epoch), post);
+postdrug_values = cellfun(@(x)x(postdrug_epoch), post) - all_baselines;
 
-poly = polyfit(all_baselines,postdrug_values,1);
+poly = polyfit(all_baselines(~isnan(postdrug_values)),...
+    postdrug_values(~isnan(postdrug_values)),1);
+
 % Evaluate the fitted polynomial and plot:
-
+outliers = isoutlier(postdrug_values);
 f = polyval(poly, all_baselines);
-figure;
-plot(all_baselines,f,'-');
-[CC, P] = corr([postdrug_values, all_baselines], 'rows','complete');
+plot(all_baselines,f,'-', 'color',[0.9100    0.4100    0.1700]);
+hold on;
+plot(all_baselines(~outliers), postdrug_values(~outliers), 'bo');
+plot(all_baselines(outliers), postdrug_values(outliers), 'rx');
+
+%Type of correlation to calculate
+correlation_type = 'Spearman';
+corr_label = {"Spearman's \rho"};
+
+[CC, P] = corr([postdrug_values, all_baselines], 'rows','pairwise', 'Type', correlation_type);
 p = P(1, 2);
-if (p > p_threshold) || (isnan(p)) 
-    legend(sprintf('cc = %.3f', CC(1, 2)), sprintf('p = %.3f', P(1, 2)));
-else
-    legend(sprintf('cc = %.3f', CC(1, 2)), ['{\color{red}p = ' num2str(P(1, 2), '%.3f}')]);
-end
+legend(sprintf('%s = %.3f\np = %.3f', corr_label{1},  CC(1, 2), p));

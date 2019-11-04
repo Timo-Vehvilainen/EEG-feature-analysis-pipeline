@@ -60,13 +60,14 @@ function [features] = get_features(epoched_data, artifact_epochs, APTs, varargin
 %           APTs:   a struct detailing the Artifact Percentage Thresholds 
 %               for all the different features in the range [0-1]. An epoch
 %               which has a percentage of artifact samples higher than the
-%               threshold will be omitted when calculating the feature.
+%               threshold will be omitted when 
 %
 %OPTIONAL PARAMETERS:
 %           epoch_length_seconds: The length of the epochs in seconds.
-%               Defaults to 120 seconds.
+%           Defaults to 120 seconds.
+%
 %           sampling_rate: The sampling rate frequency of the data
-%               provided. Defaults to 250 Hz.
+%           provided. Defaults to 250 Hz.
 %
 %OUTPUT is a struct where each field is a cell vector named after a
 %feature. Each cell element represents a subject and is of the form specified
@@ -148,7 +149,7 @@ for sub = 1:all_subs
     %loop through all the epochs for one subject
     line_lengths = zeros(Ll_size, 4);
     for epoch = 1:epoch_no
-        multiWaitbar('Epochs for current subject...', 'Value', epoch/epoch_no, 'Color', 'g');
+        multiWaitbar('Epochs for this subject...', 'Value', epoch/epoch_no, 'Color', 'g');
         active_epoch = squeeze(epoched_data{sub}(:, :, epoch));
         artifact_epoch = squeeze(artifact_epochs{sub}(:, :, epoch));
         
@@ -159,7 +160,7 @@ for sub = 1:all_subs
                 artifact_prcnt = artifact_prcnts{sub}(ch1, ch2, epoch);
                 
                 %the artifact masks from both channels are combined before
-                %calculation and comparison to APT
+                %application
                 combined_artifact_mask = or(artifact_epoch(:, ch1), artifact_epoch(:, ch2));
                 masked_epoch_ch1 = active_epoch(:, ch1);
                 masked_epoch_ch1 = masked_epoch_ch1(~combined_artifact_mask);
@@ -303,7 +304,7 @@ for sub = 1:all_subs
         suppr_curve_value = 1 - (nanmedian(median_curve) / nanmean(median_curve));
         SC{sub}(epoch) = suppr_curve_value;
     end
-    multiWaitbar('Epochs for current subject...', 'Close');
+    multiWaitbar('Epochs for this subject...', 'Close');
 end
 multiWaitbar('CLOSEALL');
 

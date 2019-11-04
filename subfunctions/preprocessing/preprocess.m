@@ -13,7 +13,7 @@ function [processed_data_montages] = preprocess(data_montages, varargin)
 %           the highpass threshold to be applied to the data as a 5th order
 %           Butterworth filter (forward-reverse). Defaults to 0.2 Hz.
 %       global_lowpass:
-%           the highpass threshold to be applied to the data as a 7th order
+%           the lowpass threshold to be applied to the data as a 7th order
 %           Butterworth filter (forward-reverse). Defaults to 30 Hz.
 %       global_gate:
 %           a value (in microVolts) for automatically magnitude detecting
@@ -54,77 +54,4 @@ for sub = 1:all_subs
 end
 close(f);
 
-% all_subs = numel(data);
-% preprocessed_data = cell(1, all_subs);
-% 
-% fprintf(1, 'Subject No: ');
-% 
-% parfor sub = 1:all_subs
-% %     figure(sub);
-%     fprintf(1, '%d... ', sub);
-%     %skip invalid patients
-%     if isnan(data{sub})
-%         preprocessed_data{sub} = NaN;
-%         continue
-%     end
-%     
-%     active_subject = data{sub};
-%     processed_subject = zeros(size(active_subject));
-%     
-%     channel_names = {'F3', 'F4', 'P3', 'P4', 'Left', 'Right', 'Frontal', 'Parietal'};
-%     
-% %     ch_no = size(active_subject, 2);
-%     ch_no = numel(channel_names);
-%     %preprocess each of the montages
-%     for ch = 1:ch_no
-%         montage_inproc = active_subject(:, ch);
-% %         x_axis = 1:numel(montage_inproc);
-% %         x_axis = x_axis * (1/sampling_rate);
-% %         subplot(3, ch_no, ch)
-% %         plot(1:numel(montage_inproc), montage_inproc, 'b');
-% %         title(sprintf("Subject %d, channel %s", sub, channel_names{ch}));
-%         %montage_inproc = bsxfun(@minus, montage_inproc, mean(montage_inproc)); % remove DC component
-%         
-%         artifact_mask = artifact_masks{sub}(:, ch);
-%         high_amp_artifacts = find(abs(montage_inproc) > global_gate);
-%         artifact_mask(high_amp_artifacts) = 1;
-%         filtered_parts = montage_inproc;
-%         montage_inproc(artifact_mask == 1) = 0;  
-%         filtered_parts(artifact_mask == 0) = NaN;
-% %         
-% %         subplot(3, ch_no, ch_no+ch)
-% %         plot(x_axis, montage_inproc, 'b');  
-% %         hold on;
-% %         plot(x_axis, filtered_parts, 'r');
-% %         title("Artifact removal");
-% %         xlabel('seconds')
-% %         hold off;
-% %         
-% %         subplot(3, ch_no, 2*ch_no+ch)
-% %         plot(x_axis, montage_inproc, 'b');
-% %         hold on;
-%         
-% %         %highpass filter, cutoff is 0.4 Hz
-% %         [b,a] = butter(5,highpass/(sampling_rate/2),'high'); 
-% %         montage_inproc = filtfilt(b,a,montage_inproc);
-% %         plot(x_axis, montage_inproc, 'g');
-% %             
-% %         %lowpass filter, cutoff is 30 Hz
-% %         [b,a] = butter(7,lowpass/(sampling_rate/2),'low'); 
-% %         montage_inproc = filtfilt(b,a,montage_inproc);
-% %         plot(x_axis, montage_inproc, 'm');
-% %         title("Frequency filtering");
-% %         legend('Original', 'after high pass', 'after high + low pass')
-% %         xlabel('seconds')
-% %         hold off;
-% 
-%         montage_inproc = my_bandpass(montage_inproc, ...
-%             [global_highpass, global_lowpass], sampling_rate);
-%         
-%         processed_subject(:, ch) = montage_inproc;
-%     end
-%     preprocessed_data{sub} = processed_subject;
-%     
-% end
-% fprintf(1, '\nDone.\n');
 end

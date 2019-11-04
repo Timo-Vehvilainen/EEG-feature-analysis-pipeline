@@ -25,8 +25,8 @@ function [data_table] = plot_timeline(pre, post, epoch_length_seconds, epoch_ove
 %           are to be plotted from the data.
 %OUTPUT
 %   Returns a table of variables. The first column variable holds the
-%   x-axis values for the plot, and the rest hold the y-data for the
-%   plotted lines, including the mean
+%   x-axis values for the plot, and the rest hold the data for all the
+%   .
 
 max_predrug_epochs = min(show_epochs(1), max(cellfun(@numel, pre)));
 max_postdrug_epochs = min(show_epochs(2), max(cellfun(@numel, post)));
