@@ -40,10 +40,11 @@ To use this pipeline, follow the instructions provided in the comments of the fe
 
 # Output
 
-After running the final part of the pipeline succesfully, the following three files should appear for each figure that is produced:
-    - .fig-file of the figure
-    - .pdf-image of the figure
-    - .mat file, which includes a cell array of tables. Each cell in the cell array visually corresponds to a subplot in the figure of the same name. Eg. The data table for the subplot in the upper left-hand corner is in cell with index (1,1).
+After running the final part of the pipeline succesfully, the following three files are saved for each figure window that is produced:
+    
+    -.fig-file of the full figure
+    -.pdf-image of the full figure
+    -.mat file, which includes a cell array of tables. Each cell in the cell array visually corresponds to a subplot in the figure of the same name. Eg. The data table for the subplot in the upper left-hand corner is in cell with index (1,1).
 
 # Artifact data formatting
 
