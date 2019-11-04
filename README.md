@@ -44,7 +44,9 @@ After running the final part of the pipeline succesfully, the following three fi
     
     -.fig-file of the full figure
     -.pdf-image of the full figure
-    -.mat file, which includes a cell array of tables. Each cell in the cell array visually corresponds to a subplot in the figure of the same name. Eg. The data table for the subplot in the upper left-hand corner is in cell with index (1,1).
+    -.mat file, which includes a cell array of tables. 
+        Each cell in the cell array visually corresponds to a subplot in the figure of the same name. 
+        Eg. The data table for the subplot in the upper left-hand corner is in cell with index (1,1).
 
 # Artifact data formatting
 
